@@ -1,0 +1,44 @@
+server:
+  host: "0.0.0.0"
+  port: 8080
+datasource:
+  mysql-chat:
+    host: 10.189.66.165
+    port: 3306
+    schema: chat
+    username: chat
+    password: your password
+    isolation_level: REPEATABLE READ
+    max_overflow: 10
+    pool_size: 7
+    pool_timeout: 60
+    pool_recycle: 28000
+# 日志配置
+logger:
+  level: DEBUG
+  encoding: utf-8
+  path: ./logs
+  file-name: fastapi.log
+  date-time-format: "%Y-%m-%d %H:%M:%S"
+  formatter: "%(asctime)s.%(msecs)03d %(levelname)s [%(filename)s %(funcName)s line:%(lineno)d] %(message)s "
+  backup_count: 3
+  # 日志文件大小，单位MB
+  max-file-size: 50
+
+mail:
+  host: smtp.exmail.qq.com
+  port: 465
+  username:
+  password:
+  default-bcc:
+
+minio:
+  endpoint:
+  access_key:
+  secret_key:
+
+sms:
+  url: http://localhost:8084/api/message/send
+  bound: 128
+  default-mobiles: ['123456', ]
+

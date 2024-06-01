@@ -1,0 +1,22 @@
+
+ENV DIRPATH=/home/app/fastapi_boilerplate TIME_ZONE=Asia/Shanghai
+
+RUN \
+  mkdir -p $DIRPATH \
+  mkdir -p $DIRPATH/pre_trained_model \
+  && echo "${TIME_ZONE}" > /etc/timezone \
+  && ln -sf /usr/share/zoneinfo/${TIME_ZONE} /etc/localtime
+
+VOLUME $DIRPATH
+
+WORKDIR $DIRPATH
+
+COPY ./fastapi_boilerplate/requirements.txt $DIRPATH
+# 使用阿里云镜像源
+RUN pip install -r $DIRPATH/requirements.txt --no-cache-dir -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com
+
+COPY ./chat $DIRPATH
+
+EXPOSE 8080/tcp
+
+CMD ["python", "fastapi_boilerplate_main.py", "--profile=prod"]
